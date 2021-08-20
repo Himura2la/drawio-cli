@@ -1,0 +1,3 @@
+[submodule "drawio-desktop"]
+	path = drawio-desktop
+	url = https://github.com/jgraph/drawio-desktop.git
