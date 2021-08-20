@@ -4,10 +4,10 @@ COPY drawio-desktop .
 RUN npm install
 RUN npx electron-builder --config electron-builder-linux-mac.json --publish never
 FROM debian
+RUN apt-get update \
+ && apt-get install --no-install-recommends -y libgbm1 libnss3 libasound2 xvfb libgtk-3-0
+ENV DRAWIO_DISABLE_UPDATE true
 WORKDIR /app
-COPY docker-entrypoint.sh .
-RUN chmod +x docker-entrypoint.sh \
- && apt-get update \
- && apt-get install --no-install-recommends -y libgbm1 libasound2 xvfb libgtk-3-0
+COPY init.sh .
 COPY --from=build /app/dist/linux-unpacked .
-ENTRYPOINT [ "docker-entrypoint.sh" ]
+ENTRYPOINT [ "/bin/bash", "--init-file", "/app/init.sh" ]
