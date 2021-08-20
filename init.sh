@@ -1,5 +1,2 @@
-#!/usr/bin/env bash
-export DISPLAY=":0"
+#!/bin/sh
 Xvfb $DISPLAY &
-alias drawio='/app/drawio --no-sandbox'
-cd /
