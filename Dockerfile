@@ -13,8 +13,8 @@ WORKDIR /app
 COPY init.sh .
 COPY drawio.sh /usr/local/bin/drawio
 RUN chmod +x /usr/local/bin/drawio \
- && sed -i $'s/\r$//' /usr/local/bin/drawio \
- && sed -i $'s/\r$//' ./init.sh
+ && sed -i 's/\x0D$//' /usr/local/bin/drawio \
+ && sed -i 's/\x0D$//' ./init.sh
 COPY --from=build /app/dist/linux-unpacked .
 WORKDIR /root
 ENTRYPOINT [ "/bin/bash", "--init-file", "/app/init.sh" ]
